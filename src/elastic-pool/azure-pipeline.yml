@@ -1,0 +1,15 @@
+trigger:
+- none
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureCLI@2
+  displayName: Scaling $(PoolName) to $(DTU) DTU
+  inputs:
+    azureSubscription: $(AzureSubscription)
+    scriptType: 'pscore'
+    scriptLocation: 'scriptPath'
+    arguments: '$(ResourceGroup) $(Server) $(PoolName) $(ServiceTier) $(DTU)'
+    scriptPath: './src/elastic-pool/Scale-ElasticPool.ps1'
